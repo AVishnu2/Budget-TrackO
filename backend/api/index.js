@@ -16,8 +16,28 @@ const aiRoutes = require('../routes/aiRoutes');
 const app = express();
 
 // Middleware
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  "https://budget-track-o.vercel.app", // Added explicitly just in case
+].filter(Boolean);
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || "*",
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true);
+
+    // Check if origin is allowed (handles trailing slashes or minor mismatches)
+    const isAllowed = allowedOrigins.some(allowed =>
+      origin.replace(/\/$/, "") === allowed.replace(/\/$/, "")
+    );
+
+    if (isAllowed || process.env.NODE_ENV !== "production") {
+      callback(null, true);
+    } else {
+      console.log("Blocked by CORS:", origin);
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
@@ -31,9 +51,9 @@ app.use(session({
   secret: process.env.SESSION_SECRET || 'your-secret-key',
   resave: false,
   saveUninitialized: false,
-  cookie: { 
-    secure: process.env.NODE_ENV === "production", 
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax" 
+  cookie: {
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
   }
 }));
 
@@ -86,4 +106,3 @@ app.use((err, req, res, next) => {
 
 // Export for Vercel
 module.exports = app;
- 
