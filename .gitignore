@@ -1,8 +1,0 @@
-node_modules/
-.venv/
-.env
-.vscode/
-dist/
-build/
-*.log
-.vercel/
