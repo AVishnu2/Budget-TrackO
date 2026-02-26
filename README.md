@@ -2,8 +2,6 @@
 
 TrackO is a comprehensive, modern, and AI-enhanced financial management application built using the MERN stack. It helps users track their income, expenses, and budgets while providing intelligent financial insights powered by Google's Gemini AI.
 
-![Dashboard Preview](images/dashboard.png)
-
 
 ## 🛠️ Tech Stack
 
