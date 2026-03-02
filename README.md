@@ -5,7 +5,7 @@ TrackO is a comprehensive, modern, and AI-enhanced financial management applicat
 
 ## 🛠️ Tech Stack
 
--   **Frontend**: React.js, Tailwind CSS, Framer Motion, Lucide Icons.
+-   **Frontend**: React.js, Tailwind CSS.
 -   **Backend**: Node.js, Express.js.
 -   **Database**: MongoDB (with Mongoose ODM).
 -   **AI**: Google Generative AI (Gemini), OpenAI API.
